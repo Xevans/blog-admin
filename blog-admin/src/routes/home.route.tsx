@@ -1,31 +1,38 @@
-//import { useEffect } from "react";
-//import { getRedirectResult } from 'firebase/auth'
-
-
-import { 
-    //auth,
-    signInWithGooglePopup, 
-} from '../utils/firebase/firebase-conn.util';
+import { useContext, useEffect } from 'react';
+import { signInWithGooglePopup } from '../utils/firebase/firebase-conn.util';
+import { UserContext } from '../context/auth/User.context';
+import { UserContextType } from '../types/UserContextType';
 
 
 function Home() {
 
-    /*
-    // Google sign in
-    // google redirect sign in
-    const doRedirectResult = async() => {
-        await getRedirectResult(auth);
+    const { user } = useContext(UserContext) as UserContextType;
 
-    }
-
-    useEffect(() => { // useEffect does not like being declared as asyncronous, had to separate code inside a function called doRedirectResult
-        doRedirectResult();
-    }, [])*/
+    useEffect(() => {
+        console.log(user);
+    },[user])
     
-
     // google pop-up sign in method
     const logGoogleUser = async () => {
         await signInWithGooglePopup(); // retrieve the user object from the signInWithGooglePopup function.
+    }
+
+    
+    function renderSwitch() {
+        if (user) {
+            return (
+                <div>
+                    You are signed in!
+                </div>
+            )
+        }
+        else {
+            return (
+                <button onClick={() => logGoogleUser()} className="mt-10 transition ease-in-out delay-10 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 text-white font-bold py-2 px-4 rounded">
+                    Sign In with Google
+                </button>
+            )
+        }
     }
 
 
@@ -35,9 +42,9 @@ function Home() {
                 Home
             </div>
 
-            <button onClick={() => logGoogleUser()} className="mt-10 transition ease-in-out delay-10 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 text-white font-bold py-2 px-4 rounded">
-                Sign In with Google
-            </button>
+            {renderSwitch()}
+            
+            
         </>
     )
 }

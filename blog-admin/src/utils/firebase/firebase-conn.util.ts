@@ -2,7 +2,8 @@
 import { initializeApp } from "firebase/app";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 import { BlogStorageType } from "../../types/blogStorageType.type";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, onAuthStateChanged, User } from "firebase/auth";
+
 
 
 
@@ -35,7 +36,7 @@ export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googlePro
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
   .then((result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
+    /*const credential = GoogleAuthProvider.credentialFromResult(result);
     if (credential) {
       const token = credential.accessToken;
       console.log(token);
@@ -44,7 +45,7 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
     const user = result.user;
     console.log(user);
     // IdP data available using getAdditionalUserInfo(result)
-    // ...
+    // ...*/
   }).catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;
@@ -69,5 +70,23 @@ export const uploadBlog = async(collectionName: string, blog_document: BlogStora
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
+  }
+}
+
+export const onAuthStateChangedListener = (user: User | null) => {
+  if (user) {
+    onAuthStateChanged(auth, (user) => {
+      
+      if (user) {
+        const uid = user.uid // '?' because user could be null (just to sate typescript).
+        console.log("user is signed in with uid: ", user.uid)
+        return user;
+      }
+      else {
+        console.log("user is signed out");
+        return null;
+      }
+
+    })
   }
 }

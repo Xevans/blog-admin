@@ -1,27 +1,29 @@
-/*import { createContext, useState, useEffect } from "react";
-import { onAuthStateChangedListener } from "../../utils/firebase/firebase-conn.util"; 
+import { createContext, useState, useEffect, FC, ReactNode } from "react";
+import { auth } from "../../utils/firebase/firebase-conn.util"; 
+import { User } from "firebase/auth";
+import { UserContextType } from "../../types/UserContextType";
 
 
 // actual value you want to access
-export const UserContext = createContext({
-    currentUser: null,
-    setCurrentUser: () => null,
-});
+export const UserContext = createContext<UserContextType | null>(null);
 
-export const UserProvider = ({ children }) => {
-    const [currentUser, setCurrentUser] = useState(null);
-    const value = { currentUser, setCurrentUser };
+export const UserProvider: FC<{children: ReactNode}> = ({ children }) => {
+    const [user, setUser] = useState<User | null>(null);
 
-    // Recall we implement useEffect when there is code we only want to run when this component is mounted for the first time.
-    // If we implement the listener without this, it will always be listening
+
     useEffect(() => {
-        const unsubscribe = onAuthStateChangedListener((user) => {
-
-            // we know that user will be returned updated with either an authenticated user or null
-            setCurrentUser(user);
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            setUser(user);
+            console.log("user is signed in: ", user)
         });
         return unsubscribe;
     }, []);
 
-    return <UserContext.Provider value={value}> {children} </UserContext.Provider>
-}*/
+    const value = {
+        user
+    }
+
+    return (
+        <UserContext.Provider value={value}> {children} </UserContext.Provider>
+    );
+}
