@@ -1,6 +1,6 @@
 Effectively creating a CMS
 
-Create a page that allows your to build a blog top down
+Create a page that allows you to build a blog top down
 
 Title field
 summary field
@@ -26,9 +26,39 @@ ex2: if you select media, you will have 3 req fields. media link, caption, attri
 
 
 Main Tasks:
-- Setup firebase auth in conn module (follow docs).
-- create context to store auth.
-- test getAuth
+- Setup firebase auth in conn module (follow docs). (done)
+- create context to store auth. (done)
+- test getAuth (done)
 - Create a test form to send the doc with auth.
 
 if all works at the stage, proceed to create the ui elements mentioned above.
+
+
+3/8/25
+
+- Like above, want to be able to create form fields
+    - On 'submit', want to generate the blog as html using the field data
+    - Then show a preview below the form (can do something fancy like a split view later)
+    - if everything looks okay, you can click an upload button which will... 
+        - prompt category selection details
+        - when completed, you can click a confirm button to finalize the upload.
+
+
+Main Tasks:
+
+Create dynamic form.
+
+Each "Section" is an object
+
+A section contains a:
+    - heading
+    - paragraph
+    - Media link
+    - Media caption
+    - Media attribution
+where each field is optional.
+
+I will have the ability to add more objects to the array
+where each object's prperty will corespond to the field for that section
+
+

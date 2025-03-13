@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import { signInWithGooglePopup } from '../utils/firebase/firebase-conn.util';
 import { UserContext } from '../context/auth/User.context';
 import { UserContextType } from '../types/UserContextType';
+import BlogForm from '../components/blog-form/blog-form.component';
 
 
 function Home() {
@@ -21,9 +22,13 @@ function Home() {
     function renderSwitch() {
         if (user) {
             return (
-                <div>
-                    You are signed in!
-                </div>
+                <>
+                    <div className='text-2xl font-semibold dark:text-blue-400'>
+                        You are signed in!
+                    </div>
+
+                    <BlogForm />
+                </>
             )
         }
         else {
@@ -38,11 +43,12 @@ function Home() {
 
     return (
         <>
-            <div className=" mt-10">
+            <div className="container mt-10 pb-20 dark:bg-slate-900 max-w-screen">
                 Home
+                {renderSwitch()}
             </div>
 
-            {renderSwitch()}
+            
             
             
         </>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
@@ -79,11 +80,11 @@ export const onAuthStateChangedListener = (user: User | null) => {
       
       if (user) {
         const uid = user.uid // '?' because user could be null (just to sate typescript).
-        console.log("user is signed in with uid: ", user.uid)
+        //console.log("user is signed in with uid: ", user.uid)
         return user;
       }
       else {
-        console.log("user is signed out");
+        //console.log("user is signed out");
         return null;
       }
 
