@@ -10,7 +10,7 @@ function Home() {
     const { user } = useContext(UserContext) as UserContextType;
 
     useEffect(() => {
-        console.log(user);
+        //console.log(user);
     },[user])
     
     // google pop-up sign in method

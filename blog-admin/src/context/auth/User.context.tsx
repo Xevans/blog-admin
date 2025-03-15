@@ -14,7 +14,7 @@ export const UserProvider: FC<{children: ReactNode}> = ({ children }) => {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setUser(user);
-            console.log("user is signed in: ", user)
+            //console.log("user is signed in: ", user)
         });
         return unsubscribe;
     }, []);

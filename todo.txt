@@ -62,3 +62,11 @@ I will have the ability to add more objects to the array
 where each object's prperty will corespond to the field for that section
 
 
+3/14/25
+Note: when you hit enter in a textarea, it is appended to the string as '\n'
+treat \n as <br/>
+
+For the realtime, Renderedview, I am going to drill down the necessary state objects to be converted to HTML.
+Since the RenderedView component is the only component that will be accessing this data 
+and there will be no two-way transactions between the child and parent, prop drilling will be just fine
+
