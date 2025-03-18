@@ -70,3 +70,31 @@ For the realtime, Renderedview, I am going to drill down the necessary state obj
 Since the RenderedView component is the only component that will be accessing this data 
 and there will be no two-way transactions between the child and parent, prop drilling will be just fine
 
+
+3-15-25
+Might not want to store the blog as TSX. 
+Instead, apply the logic behind the rendered-blog-view to the user-facing blog project.
+The user app only needs two things: The Blog Header object and the BlogSection object Array
+
+3-18-25
+Good job. We can recreate an existing blog using this tool now. Here are the remaining tasks:
+
+Blog Renderer:
+Get bold text to show up (similar approach to line breaks?)
+Show embedded links in text
+
+Blog Uploader:
+Add an id field to the blogHeader data structure.
+Consider how firebase will store the data structure.
+Implement logic to upload (configure firebase to allow writes from auth users only).
+
+Blog:
+Update blog to fetch and render stored blogs from firebase as a test.
+Consider how the Blog app will know which blog to fetch
+    - I want a link to any particular blog to contain a blogId argument that tells the app which blog to fetch (the blog with the matching id)
+    - usecase: is send a blog to a friend. It ends in the arg /blog=mission the the app renders the page and fetches the data for mission.
+
+reference:
+https://res.cloudinary.com/dn9rcml4g/image/upload/c_crop,h_600,w_800/blog-pics/pc-screen-motivation
+https://res.cloudinary.com/dn9rcml4g/image/upload/f_auto,q_auto/v1/blog-pics/dev-image-1
+https://res.cloudinary.com/dn9rcml4g/image/upload/v1739318928/blog-pics/cat-computer-gif.gif

@@ -43,7 +43,7 @@ function Home() {
 
     return (
         <>
-            <div className="container mt-10 pb-20 dark:bg-slate-900 max-w-screen">
+            <div className="container mt-10 dark:bg-slate-900 max-w-screen">
                 Home
                 {renderSwitch()}
             </div>
