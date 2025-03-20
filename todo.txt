@@ -80,11 +80,11 @@ The user app only needs two things: The Blog Header object and the BlogSection o
 Good job. We can recreate an existing blog using this tool now. Here are the remaining tasks:
 
 Blog Renderer:
-Get bold text to show up (similar approach to line breaks?)
-Show embedded links in text
+Get bold text to show up (similar approach to line breaks?) [optional]
+Show embedded links in text [lesser priority at the moment]
 
 Blog Uploader:
-Add an id field to the blogHeader data structure.
+Have firebase append a unique identifier to blog records. (this happends by default, but a string identifier (the title) would be nice.)
 Consider how firebase will store the data structure.
 Implement logic to upload (configure firebase to allow writes from auth users only).
 

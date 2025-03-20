@@ -19,23 +19,6 @@ function RenderedBlogView({header, sections }: BlogData) { // incoming props
         } = header;
 
 
-        /*function processParagraph(paragraph: string) {
-            
-            if (paragraph.length > 0) {
-
-                const formattedText = paragraph.replace(/\n/g, '<br/>');
-                
-                return (
-
-                )
-
-            }
-            else {
-                return ("");
-            }
-        }*/
-
-
 
     return (
         <>
@@ -53,22 +36,29 @@ function RenderedBlogView({header, sections }: BlogData) { // incoming props
 
                                 <p className="pt-8">{summary}</p>
 
-                                <h4 className="text-sm">{date}</h4>
+                                <h4 className="text-sm font-bold pt-5">{date}</h4>
                             </div>
 
                             <div>
                                 <div className="flex flex-col">
 
-                                    <article className="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 mx-auto mt-8">
-                                        <img src={featured_media_link} className="w-full h-full rounded-lg" alt="" />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
-                                        <h3 className="z-10 mt-3 text-3xl font-bold text-white">
-                                            {featured_media_caption}
-                                        </h3>
-                                        <div className="z-10 gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">
-                                            {featured_media_attribution}
-                                        </div>
-                                    </article>
+                                    {
+                                        featured_media_link.length > 0 &&
+
+                                        <article className="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 mx-auto mt-8">
+                                            <img src={featured_media_link} className="w-full h-full rounded-lg" alt="" />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
+                                            <h3 className="z-10 mt-3 text-3xl font-bold text-white">
+                                                {featured_media_caption}
+                                            </h3>
+                                            <div className="z-10 gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">
+                                                {featured_media_attribution}
+                                            </div>
+                                        </article>
+
+                                    }
+
+                                    
 
                                     <div className="lg:ml-20 max-w-4xl text-lg pb-10">
                                         {sections.map((this_section, key) => {
@@ -92,11 +82,13 @@ function RenderedBlogView({header, sections }: BlogData) { // incoming props
                                                           <h4 className="text-3xl font-semibold pb-5"> {heading} </h4>                                                            
                                                             <div className="text-lg"> 
                                                                 { // need to process line breaks as <br/> to reflect them in output
-                                                                paragraph.split("\n").map((line, key) => { 
+                                                                paragraph.split("\n").map((line, key) => {                                                                    
                                                                     return (
                                                                         <div key={key}>
                                                                             <div>
-                                                                                <p>{line}</p>
+                                                                                <p>
+                                                                                    {line}
+                                                                                </p>
                                                                                 <br/>
                                                                             </div>
                                                                         </div>

@@ -1,5 +1,7 @@
 import { ChangeEvent, useState } from "react"
 import RenderedBlogView from "../rendered-blog-view/rendered-blog-view";
+import { uploadBlog } from "../../utils/firebase/firebase-conn.util";
+import { BlogStorageType } from "../../types/blogStorageType.type";
 
 
 // structure for blog header
@@ -51,8 +53,23 @@ function BlogForm() {
     );
 
 
-    function handleSubmit() {
+    const handleSubmit = async () => { // pack and ship
+        try {
 
+            const blog_package = {
+                header: header,
+                content: sections
+            } as BlogStorageType;
+    
+            const collection_name = header.category.replace(/ /g, "-").toLowerCase();
+            const document_name = header.title.replace(/ /g, "-").toLowerCase();
+    
+            await uploadBlog(collection_name, document_name, blog_package);
+            console.log("Done!");
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 
