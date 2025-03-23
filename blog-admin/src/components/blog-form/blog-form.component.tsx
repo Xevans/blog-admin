@@ -8,7 +8,6 @@ import { BlogStorageType } from "../../types/blogStorageType.type";
 export interface BlogHeader {
     title: string, // '?' indicates optional
     category: string,
-    date: string,
     summary: string,
     featured_media_link: string,
     featured_media_caption: string,
@@ -31,7 +30,6 @@ function BlogForm() {
         {
             title: "",
             category: "",
-            date: "",
             summary: "",
             featured_media_link: "",
             featured_media_caption: "",
@@ -90,13 +88,13 @@ function BlogForm() {
     function handleHeaderChange(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) { // data is expected to be either input or text area
         const { name, value } = event.target;
         setHeader({...header, [name]: value}) // e.g. update header with old values and title: "hello world" (the updated value)
-        console.log(header);
+        //console.log(header);
     }
 
 
     function handleSectionChange(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>, key: number) {
 
-        console.log(key);
+        //console.log(key);
 
         const { name, value } = event.target;
         
@@ -113,7 +111,7 @@ function BlogForm() {
         }) as BlogSection[]; // For the love of god. Typescript, my brother in christ, I know that this varible will be a BlogSection type.
         
         setSections(updated_sections); // need the above logic to return the complete array + the modification of this will fail
-        console.log(updated_sections);
+        //console.log(updated_sections);
     }
 
 
@@ -156,17 +154,6 @@ function BlogForm() {
                                         name="category"
                                         value={header.category}
                                         onChange={(e) => handleHeaderChange(e)}
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
-                                        dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        />
-                                    </div>
-
-                                    <div className="mt-10">
-                                        <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-slate-900 dark:text-white">Date</label>
-                                        <input type="text" id="base-input"
-                                        name="date"
-                                        value={header.date}
-                                        onChange={(e) => handleHeaderChange(e)} 
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
                                         dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         />
