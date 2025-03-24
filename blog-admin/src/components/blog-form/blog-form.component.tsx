@@ -1,6 +1,6 @@
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import RenderedBlogView from "../rendered-blog-view/rendered-blog-view";
-import { uploadBlog } from "../../utils/firebase/firebase-conn.util";
+import { getBlogList, uploadBlog } from "../../utils/firebase/firebase-conn.util";
 import { BlogStorageType } from "../../types/blogStorageType.type";
 
 
@@ -49,6 +49,24 @@ function BlogForm() {
             }
         ]
     );
+
+
+    //testing
+    const checkCollection = async () => {
+        try {
+            getBlogList("writing");
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        checkCollection();
+    },[]);
+
+
+
+
 
 
     const handleSubmit = async () => { // pack and ship

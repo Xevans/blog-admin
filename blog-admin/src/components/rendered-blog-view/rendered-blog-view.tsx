@@ -11,7 +11,6 @@ function RenderedBlogView({header, sections }: BlogData) { // incoming props
         const { 
             title,
             category,
-            date,
             summary,
             featured_media_link,
             featured_media_caption,
@@ -36,7 +35,7 @@ function RenderedBlogView({header, sections }: BlogData) { // incoming props
 
                                 <p className="pt-8">{summary}</p>
 
-                                <h4 className="text-sm font-bold pt-5">{date}</h4>
+                                <h4 className="text-sm font-bold pt-5">Date will go here.</h4>
                             </div>
 
                             <div>
@@ -62,8 +61,6 @@ function RenderedBlogView({header, sections }: BlogData) { // incoming props
 
                                     <div className="lg:ml-20 max-w-4xl text-lg pb-10">
                                         {sections.map((this_section, key) => {
-
-                                            console.log(this_section.paragraph)
                                             
                                             const {
                                                 heading,

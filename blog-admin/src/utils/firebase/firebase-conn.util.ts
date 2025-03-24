@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { addDoc, collection, doc, getFirestore, serverTimestamp, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, getFirestore, serverTimestamp, setDoc } from "firebase/firestore";
 import { BlogStorageType } from "../../types/blogStorageType.type";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, onAuthStateChanged, User } from "firebase/auth";
 
@@ -61,6 +61,36 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
     console.log(credential);
     // ...
   });
+
+
+
+  //testin purposes
+  export const getBlogList = async(collectionName: string) => {
+    try {
+      // request collection
+      const collection_snapshot = await getDocs(collection(db, collectionName)); // all documents in collection
+      console.log("here0");
+      console.log(collection_snapshot);
+      // evaluate returned data
+      if (collection_snapshot) {
+        console.log(collection_snapshot.size)
+  
+        collection_snapshot.forEach((docSnap) => { // for each el, extract data for blog list then store each element to list
+          const doc = docSnap.data();
+          
+          console.log(doc);
+  
+        });
+      }
+      else {
+        console.log("here01");
+        throw new Error("Could not find collection or collection has no documents");
+        
+      }
+    } catch (e) {
+      console.error("Error retrieving data: ", e);
+    }
+  }
 
 
 
