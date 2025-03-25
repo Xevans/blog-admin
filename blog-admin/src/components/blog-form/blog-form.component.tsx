@@ -1,6 +1,6 @@
-import { ChangeEvent, useEffect, useState } from "react"
+import React, { ChangeEvent, useState } from "react"
 import RenderedBlogView from "../rendered-blog-view/rendered-blog-view";
-import { getBlogList, uploadBlog } from "../../utils/firebase/firebase-conn.util";
+import { uploadBlog } from "../../utils/firebase/firebase-conn.util";
 import { BlogStorageType } from "../../types/blogStorageType.type";
 
 
@@ -51,25 +51,14 @@ function BlogForm() {
     );
 
 
-    //testing
-    const checkCollection = async () => {
-        try {
-            getBlogList("writing");
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    useEffect(() => {
-        checkCollection();
-    },[]);
 
 
 
 
+    const handleSubmit = async (event: React.FormEvent) => { // pack and ship
+        // rookie mistake: forgot prevent default (page refreshed before API call finished).
+        event.preventDefault();
 
-
-    const handleSubmit = async () => { // pack and ship
         try {
 
             const blog_package = {
@@ -79,6 +68,8 @@ function BlogForm() {
     
             const collection_name = header.category.replace(/ /g, "-").toLowerCase();
             const document_name = header.title.replace(/ /g, "-").toLowerCase();
+
+            console.log(blog_package, collection_name, document_name);
     
             await uploadBlog(collection_name, document_name, blog_package);
             console.log("Done!");
@@ -87,6 +78,8 @@ function BlogForm() {
             console.log(error);
         }
     }
+
+
 
 
     function addSection() {
@@ -144,7 +137,7 @@ function BlogForm() {
                                 <div className="mb-5">
 
                                     <div>
-                                        <button type="submit" onClick={() => handleSubmit()} className="mt-10 transition ease-in-out delay-10 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 text-white font-bold py-2 px-4 rounded">
+                                        <button type="submit" onClick={async (e) => handleSubmit(e)} className="mt-10 transition ease-in-out delay-10 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 text-white font-bold py-2 px-4 rounded">
                                             Submit
                                         </button>
                                     </div>

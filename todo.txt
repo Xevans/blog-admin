@@ -102,3 +102,4 @@ https://res.cloudinary.com/dn9rcml4g/image/upload/v1739318928/blog-pics/cat-comp
 
 
 Tried making a writing blog and had an error, investigate.
+Forgot preventDeafault function. Prevents a form's default behavior (page refresh) when data is submitted

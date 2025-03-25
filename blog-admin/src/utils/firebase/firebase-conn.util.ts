@@ -64,33 +64,7 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
 
 
 
-  //testin purposes
-  export const getBlogList = async(collectionName: string) => {
-    try {
-      // request collection
-      const collection_snapshot = await getDocs(collection(db, collectionName)); // all documents in collection
-      console.log("here0");
-      console.log(collection_snapshot);
-      // evaluate returned data
-      if (collection_snapshot) {
-        console.log(collection_snapshot.size)
-  
-        collection_snapshot.forEach((docSnap) => { // for each el, extract data for blog list then store each element to list
-          const doc = docSnap.data();
-          
-          console.log(doc);
-  
-        });
-      }
-      else {
-        console.log("here01");
-        throw new Error("Could not find collection or collection has no documents");
-        
-      }
-    } catch (e) {
-      console.error("Error retrieving data: ", e);
-    }
-  }
+
 
 
 
@@ -102,14 +76,22 @@ export const uploadBlog = async(collection_name: string, blog_name: string, blog
       blog_document
     }; 
     
-    await setDoc(doc(db, collection_name, blog_name), doc_data);
+    const doc_ref = await setDoc(doc(db, collection_name, blog_name), doc_data);
     
     console.log("Document written.");
+    console.log(doc_ref);
 
   } catch (e) {
     console.error("Error adding document: ", e);
   }
 }
+
+
+
+
+
+
+
 
 export const onAuthStateChangedListener = (user: User | null) => {
   if (user) {
