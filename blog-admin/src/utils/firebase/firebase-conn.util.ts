@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { addDoc, collection, doc, getDocs, getFirestore, serverTimestamp, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, getFirestore, serverTimestamp, setDoc } from "firebase/firestore";
 import { BlogStorageType } from "../../types/blogStorageType.type";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, onAuthStateChanged, User } from "firebase/auth";
 
@@ -69,6 +69,7 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
 
 
 // firebase function wrapped in a helper function
+// create document or update if already in DB
 export const uploadBlog = async(collection_name: string, blog_name: string, blog_document: BlogStorageType) => {
   try {
     const doc_data = {
@@ -86,6 +87,27 @@ export const uploadBlog = async(collection_name: string, blog_name: string, blog
   }
 }
 
+
+
+
+// get document
+export const getBlog = async(collection_name: string, blog_document: string) => {
+  try {
+    //const doc_ref = await doc(db, collection_name, blog_document);
+    const doc_ref = await doc(db, collection_name, blog_document);
+    const doc_snap = await getDoc(doc_ref);
+
+    if (doc_snap.exists()) { 
+      //console.log(doc_snap.data());
+      return doc_snap.data();
+    } 
+    else {
+      throw new Error("Could not find snapshot with the given args.");
+    }
+  } catch (e) {
+    console.error("Error fetching document: ", e);
+  }
+}
 
 
 

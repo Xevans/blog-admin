@@ -103,15 +103,16 @@ function RenderedBlogView({header, sections }: BlogData) { // incoming props
                                                         <>
                                                             <div className="p-10 max-w-lg max-h-lg mx-auto">
                                                                 <img src={media_link} className="w-full h-full rounded-lg" alt="" />
-                                                            </div>
+                                                            
 
-                                                            <div className="text-sm">
-                                                                <div>
-                                                                    {media_caption}
-                                                                </div>
+                                                                <div className="text-sm">
+                                                                    <div>
+                                                                        {media_caption}
+                                                                    </div>
 
-                                                                <div>
-                                                                    {media_attribution}
+                                                                    <div>
+                                                                        {media_attribution}
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </>

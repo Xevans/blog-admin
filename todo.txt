@@ -103,3 +103,36 @@ https://res.cloudinary.com/dn9rcml4g/image/upload/v1739318928/blog-pics/cat-comp
 
 Tried making a writing blog and had an error, investigate.
 Forgot preventDeafault function. Prevents a form's default behavior (page refresh) when data is submitted
+
+
+3/25/25
+For an edit featured
+
+Could show a table that shows the collections as categories
+When a category is selected, show a paginated table of blogs
+When a blog is clicked on, update the state of header and sections with the pulled ones.
+This should update the form on the ui
+
+since I'm leveraging setDoc in the firestore SDK. the document with the matching id (in this case the title field) will be updated unless I change the title.
+
+
+A way to handle links for attributions Add an attribution link field
+in the renderer, if a link is provided, render the attr in an a tag
+
+
+
+For paragraphs, we could add links at the end, using [brackets to explain where they go]
+Ex: see my last blog* where I make an api call using the docs at firebase.com*
+
+links[{name: "See my last blog", link:"https..."}, {name: "Firebase docs", link:"https..."}]
+The following will show at the end of the paragraph
+link1: <a href="https://link.com">See my last blog</a>
+link1: <a href="https://link.com">Firebase docs</a>
+
+
+4/6/25
+Consider making collections (categories) for food, cooking, gaming, travel, and more.
+On the Blog app, it will grab from them each and show the latest in descending order.
+a drop down can be utilized to filter for a specific category.
+
+All in all, they will effectively be different collections in the DB but they will all be shown in the Lifestyle route.

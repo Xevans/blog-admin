@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from "react"
 import RenderedBlogView from "../rendered-blog-view/rendered-blog-view";
-import { uploadBlog } from "../../utils/firebase/firebase-conn.util";
+import { getBlog, uploadBlog } from "../../utils/firebase/firebase-conn.util";
 import { BlogStorageType } from "../../types/blogStorageType.type";
 
 
@@ -21,6 +21,13 @@ export interface BlogSection {
     media_link: string,
     media_caption: string,
     media_attribution: string,
+}
+
+
+// structure for blog fetch
+export interface BlogFetch {
+    name: string,
+    collection: string
 }
 
 function BlogForm() {
@@ -51,6 +58,13 @@ function BlogForm() {
     );
 
 
+    // fetch memory
+    const [doc_info, setDocInfo] = useState<BlogFetch>(
+        {
+            name: "",
+            collection: ""
+        }
+    );
 
 
 
@@ -126,6 +140,29 @@ function BlogForm() {
     }
 
 
+    function handleFetchChange(event: ChangeEvent<HTMLInputElement>) {
+
+        const {name, value} = event.target;
+        setDocInfo( {...doc_info, [name]: value } );
+
+    }
+
+
+    const getDocument = async (event: React.FormEvent) => { // modify this so that util function sends back an object
+        event.preventDefault();
+
+        const fetched_doc = await getBlog(doc_info.collection, doc_info.name);
+        console.log(fetched_doc);
+        
+        if (fetched_doc) { 
+            console.log(fetched_doc.blog_document.header);
+            setHeader(fetched_doc.blog_document.header);
+            setSections(fetched_doc.blog_document.content);
+        }
+
+    }
+
+
     return (
         <>
             <div className="container mt-10 ml-auto mr-auto min-h-screen">
@@ -137,9 +174,41 @@ function BlogForm() {
                                 <div className="mb-5">
 
                                     <div>
-                                        <button type="submit" onClick={async (e) => handleSubmit(e)} className="mt-10 transition ease-in-out delay-10 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 text-white font-bold py-2 px-4 rounded">
-                                            Submit
-                                        </button>
+                                        <div className="">
+                                        <div>
+                                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-slate-900 dark:text-white">ID</label>
+                                            <input type="text" id="base-input"
+                                            name="name"
+                                            value={doc_info.name}
+                                            onChange={(e) => handleFetchChange(e)}
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                                            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-slate-900 dark:text-white">Collection</label>
+                                            <input type="text" id="base-input"
+                                            name="collection"
+                                            value={doc_info.collection}
+                                            onChange={(e) => handleFetchChange(e)}
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                                            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            />
+                                        </div>
+
+                                            <button type="button" onClick={async (e) => getDocument(e)} className="mt-10 transition ease-in-out delay-10 bg-green-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 text-white font-bold py-2 px-4 rounded">
+                                                Fetch
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div className="">
+                                            <button type="submit" onClick={async (e) => handleSubmit(e)} className="mt-10 transition ease-in-out delay-10 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 text-white font-bold py-2 px-4 rounded">
+                                                Submit
+                                            </button>
+                                        </div>
                                     </div>
 
                                     <div className="text-3xl dark:text-white font-semibold">
