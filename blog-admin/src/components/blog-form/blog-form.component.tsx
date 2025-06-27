@@ -32,7 +32,7 @@ export interface BlogFetch {
 
 function BlogForm() {
 
-    // header memory
+    // header state memory
     const [header, setHeader] = useState<BlogHeader>(
         {
             title: "",
@@ -44,7 +44,7 @@ function BlogForm() {
         }
     );
 
-    // section(s) memory
+    // section(s) state memory
     const [sections, setSections] = useState<BlogSection[]>(
         [
             {
@@ -58,7 +58,7 @@ function BlogForm() {
     );
 
 
-    // fetch memory
+    // state memory for fetch
     const [doc_info, setDocInfo] = useState<BlogFetch>(
         {
             name: "",
@@ -95,7 +95,7 @@ function BlogForm() {
 
 
 
-
+    // add a section to the blog section list
     function addSection() {
         
         const new_section = {
@@ -107,6 +107,17 @@ function BlogForm() {
         } as BlogSection;
 
         setSections([...sections, new_section]); // add new section
+    }
+
+    // remove a section from the blog section list
+    function removeSection(index: number) {
+        const new_sections = sections.filter((section_item, idx) => {
+            if (idx !== index) {
+                return section_item;
+            }
+        });
+        
+        setSections(new_sections);
     }
 
 
@@ -296,8 +307,17 @@ function BlogForm() {
 
                                             <div key={key} className="mb-10 p-10 rounded-2xl dark:bg-slate-600 text-white">
 
-                                                <div className="text-3xl font-semibold">
-                                                    Section: #{key+1}
+                                                <div className="flex">
+                                                    <div className="text-3xl font-semibold flex-1">
+                                                        Section: #{key+1}
+                                                    </div>
+                                                    <div>
+                                                        <div className="dark:bg-slate-900 dark:hover:bg-red-500 px-3 py-1 rounded-2xl cursor-pointer"
+                                                            onClick={() => removeSection(key)}
+                                                        >
+                                                            X
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                                 <div>
